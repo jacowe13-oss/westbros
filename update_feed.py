@@ -125,7 +125,7 @@ def main():
     from internetarchive import get_item, get_session
     session = get_session(config={'s3': {'access': access, 'secret': secret}})
     item = get_item(ITEM, archive_session=session)
-    responses = item.upload(FILENAME, headers={'x-archive-keep-old-version': '1'}, verbose=False)
+    responses = item.upload(FILENAME, overwrite=True, verbose=False)
     for response in responses:
         response.raise_for_status()
     print(f'Uploaded {len(additions)} new episode(s). Total: {len(existing) + len(additions)}')
