@@ -178,7 +178,11 @@ def main():
     from internetarchive import get_item, get_session
     session = get_session(config={'s3': {'access': access, 'secret': secret}})
     item = get_item(ITEM, archive_session=session)
-    responses = item.upload(FILENAME, overwrite=True, verbose=False)
+   responses = item.upload(
+    FILENAME,
+    headers={'x-archive-keep-old-version': '1'},
+    verbose=False
+)
     for response in responses:
         response.raise_for_status()
     print(f'Upload accepted: show title {SHOW_TITLE!r}; added {len(additions)}, removed {len(removals)}; '
