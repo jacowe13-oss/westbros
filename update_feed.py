@@ -165,6 +165,7 @@ def main():
         channel.insert(0, item)
 
    
+
     if not additions and not removals and not title_changed:
         print(f'No changes. Existing: {len(existing)}; Blogger: {len(posts)}; '
               f'awaiting deletion confirmation: {len(missing_now)}')
@@ -197,3 +198,4 @@ if __name__ == '__main__':
     except Exception as exc:
         print(f'Updater failed safely: {exc}', file=sys.stderr)
         sys.exit(1)
+
