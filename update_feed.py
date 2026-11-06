@@ -165,7 +165,7 @@ def main():
         channel.insert(0, item)
 
     if not additions and not removals and not title_changed:
-        print(f'No upload needed. Archive: {len(existing)}; Blogger: {len(posts)}; '
+       responses = item.upload(FILENAME, verbose=False)
               f'awaiting deletion confirmation: {len(missing_now)}')
         return
 
