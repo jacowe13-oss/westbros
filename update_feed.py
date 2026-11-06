@@ -93,11 +93,11 @@ def new_rss_item(entry):
 
 
 def key_for_item(item):
-    return (item.findtext('guid') or normalize(item.findtext('link')) or '').strip()
+    return normalize(item.findtext('link'))
 
 
 def key_for_entry(entry):
-    return (entry.findtext(ATOM + 'id') or normalize(blog_link(entry)) or '').strip()
+    return normalize(blog_link(entry))
 
 
 def save_state(keys):
