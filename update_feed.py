@@ -191,7 +191,10 @@ def main():
     item = get_item(ITEM, archive_session=session)
     responses = item.upload(FILENAME, verbose=False)
 
+    print(f'Upload response count: {len(responses)}')
     for response in responses:
+        print(f'Internet Archive HTTP status: {response.status_code}')
+        print(f'Internet Archive response: {response.text[:500]}')
         response.raise_for_status()
 
     print(f'Upload accepted: show title {SHOW_TITLE!r}; added {len(additions)}, removed {len(removals)}; '
