@@ -164,8 +164,8 @@ def main():
     for item in reversed(additions):
         channel.insert(0, item)
 
-    if not additions and not removals and not title_changed:
-       responses = item.upload(FILENAME, verbose=False)
+        if not additions and not removals and not title_changed:
+        print(f'No changes. Existing: {len(existing)}; Blogger: {len(posts)}; '
               f'awaiting deletion confirmation: {len(missing_now)}')
         return
 
