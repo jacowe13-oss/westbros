@@ -164,23 +164,28 @@ def main():
     for item in reversed(additions):
         channel.insert(0, item)
 
-        if not additions and not removals and not title_changed:
+   
+    if not additions and not removals and not title_changed:
         print(f'No changes. Existing: {len(existing)}; Blogger: {len(posts)}; '
               f'awaiting deletion confirmation: {len(missing_now)}')
         return
 
     ET.indent(rss, space='  ')
     ET.ElementTree(rss).write(FILENAME, encoding='utf-8', xml_declaration=True)
+
     access = os.environ.get('IA_ACCESS_KEY')
     secret = os.environ.get('IA_SECRET_KEY')
     if not access or not secret:
         raise RuntimeError('Missing Internet Archive GitHub secrets')
+
     from internetarchive import get_item, get_session
     session = get_session(config={'s3': {'access': access, 'secret': secret}})
     item = get_item(ITEM, archive_session=session)
-   responses = item.upload(FILENAME, headers={'x-archive-keep-old-version': '1'}, verbose=False)
+    responses = item.upload(FILENAME, verbose=False)
+
     for response in responses:
         response.raise_for_status()
+
     print(f'Upload accepted: show title {SHOW_TITLE!r}; added {len(additions)}, removed {len(removals)}; '
           f'total RSS episodes: {len(existing) - len(removals) + len(additions)}')
     print('Internet Archive and FeedBurner may cache the previous version temporarily.')
