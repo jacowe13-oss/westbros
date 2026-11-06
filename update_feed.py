@@ -144,6 +144,9 @@ def main():
         previous_missing = set()
 
     missing_now = existing_set - blogger_set
+        print(f'Blogger episodes: {len(posts)}; Archive episodes: {len(existing)}')
+        print(f'Matching identifiers: {len(existing_set & blogger_set)}')
+        print(f'Sample Blogger ID: {blogger_keys[0] if blogger_keys else "NONE"}')
     # Only remove if it was also missing in the previous successful check.
     removals = missing_now & previous_missing
     if len(removals) > MAX_REMOVALS_PER_RUN:
