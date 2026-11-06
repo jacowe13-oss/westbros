@@ -142,7 +142,10 @@ def main():
             previous_missing = set(json.load(file).get('missing_once', []))
     except FileNotFoundError:
         previous_missing = set()
-
+        
+    archive_urls = {normalize(x.findtext('link')) for x in existing}
+    blogger_urls = {normalize(blog_link(p)) for p in posts}
+    print(f'Matching episode URLs: {len(archive_urls & blogger_urls)}')
     missing_now = existing_set - blogger_set
     print(f'Blogger episodes: {len(posts)}; Archive episodes: {len(existing)}')
     print(f'Matching identifiers: {len(existing_set & blogger_set)}')
